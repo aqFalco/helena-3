@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="menu">
+                <div class="logo">
+                    <img style="width: 100px; height: 40px;" src="Clan.png" alt="logo" />
+                </div>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="CClient.html">Create Client</a></li>
+                    <li><a href="CProduct.html">Create Product</a></li>
+                    <li><a href="History.php">History</a></li>
+                    <li><a href="POrder.php">Pre-Order</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="img"></div>
+    <div class="center">
+        <div class="wrapper">
+            <h2>Create Product</h2>
+            <form action="../produto.php" method="POST">
+                <div class="input-box">
+                    <input type="text" name="prodId" placeholder="Enter the ID" required>
+                </div>
+                <div class="input-box">
+                    <input type="text" name="prodCode" placeholder="Enter Product Code" required>
+                </div>
+                <div class="input-box">
+                    <input type="text" name="prodDesc" placeholder="Enter description" required>
+                </div>
+               <!--- <div class="input-box">
+                    
+                <input type="week" name="week" id="camp-week"
+                    min="2022-W01" max="2022-W55" required>
+                </div> -->
+                <div class="input-field">
+                    <input type="radio" name="Activity" value="A" id="dot-1">
+                    <input type="radio" name="Activity" value="I" id="dot-2">
+                    <span class="gender-title">Activity</span>
+                    <div class="category">
+                        <label for="dot-1">
+                            <span class="dot one"></span>
+                            <span class="Activity">Active</span>
+                        </label>
+                        <label for="dot-2">
+                            <span class="dot two"></span>
+                            <span class="Activity">Inactive</span>
+                        </label>
+                    </div>
+                </div>
+
+
+
+                -
+                <div class="input-box button">
+                    <input type="submit" name value="Create Product">
+                </div>
+
+
+            </form>
+        </div>
+</body>
+
+</html>

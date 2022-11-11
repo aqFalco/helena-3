@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="menu">
+                <div class="logo">
+                    <img style="width: 100px; height: 40px;" src="Clan.png" alt="logo" />
+                </div>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="CClient.html">Create Client</a></li>
+                    <li><a href="CProduct.html">Create Product</a></li>
+                    <li><a href="History.php">History</a></li>
+                    <li><a href="POrder.php">Pre-Order</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="img"></div>
+    <div class="center">
+        <div class="wrapper">
+            <h2>Create Client</h2>
+            <form action="client.php" method="POST">
+                <div class="input-box">
+                    <input name="name" type="text" placeholder="Enter Name" required>
+                </div>
+                <div class="input-box">
+                    <input name="nif" type="number" placeholder="Enter NIF" required>
+                </div>
+                <div class="input-box">
+                    <input name="morada" type="text" placeholder="Enter Address" required>
+                </div>
+                <div class="input-box">
+                    <input name="local" type="text" placeholder="Enter Location" required>
+                </div>
+                <div class="input-box">
+                    <input name="cpostal" type="text" placeholder="Enter Postal Code" required>
+                </div>
+                <div class="input-box">
+                    <input name="setor" type="text" placeholder="Enter Sector" required>
+                </div>
+                <div class="input-box">
+                    <input name="hora" type="time" placeholder="Enter Order Time" required>
+                </div>
+
+                <div class="input-field">
+                    <input name="estado" type="radio" value="A" id="dot-1">
+                    <input name="estado" type="radio" value="I" id="dot-2">
+                    <span class="gender-title">Activity</span>
+                    <div class="category">
+                        <label for="dot-1">
+                            <span class="dot one"></span>
+                            <span class="Activity">Active</span>
+                        </label>
+                        <label for="dot-2">
+                            <span class="dot two"></span>
+                            <span class="Activity">Inactive</span>
+                        </label>
+                    </div>
+                </div>
+
+
+
+
+                -
+                <div class="input-box button">
+                    <input type="submit" name value="Create Client">
+                </div>
+                <div class="input-box button">
+                    <input type="reset" name value="Reset form">
+                </div>
+
+
+            </form>
+        </div>
+</body>
+
+</html>

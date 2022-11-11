@@ -44,21 +44,7 @@
             <div class="close-btn"></div>
             <div class="custom-model-wrap">
                 <div id="popupid" class="pop-up-content-wrap">
-                    <h1 id="nome">Pingo Doce</h1> <!--nome-->
-                    <h1 id="client">Andre Quintas-Banana</h1> <!--cliente e product-->
-                    <h1 id="prodCode">Banana</h1> <!--prodCode-->
-                    <p id="id">Client Id: 745896</p> <!--id-->
-                    <p id="prodId">Product Id: 745896</p> <!--prodId-->
-                    <p id="prodDesc">Este é um produto bastante vendido entre o resto dos prdutos</p> <!--prodDesc-->
-                    <p id="nif">Nif: 963258741</p> <!--nif-->
-                    <p id="morada">Morada: Alcochete(Avenida I dont know)</p> <!--morada localidade cpostal-->
-                    <p id="setor">Setor: Supermercado</p> <!--setor-->
-                    <p id="amount">Quantidade: 52</p> <!--amount-->
-                    <p id="week">Semana: 32</p> <!--week-->
-                    <p id="horario">Horario: 9Am - 23Pm</p> <!--horario-->
-                    <p id="estado">Estado: Ativo</p> <!--estado-->
-                    <p id="Activity">Estado: Ativo</p> <!--Activity-->
-                    <p id="horas">Horas</p> <!--horas-->
+                    <!--///////query results go here///////-->
                 </div>
             </div>
         </div>
@@ -88,7 +74,7 @@
                             {
                                 foreach($info as $row)
                                 {
-                                    echo "<button id='".$row['id']." client' class='Click-here' style='background:linear-gradient(to right, ". (($row['estado'] == 'A') ? "#59f309 0%, #368f1f 100%" : "#ff1414 0%, #a92828 100%") .");' type='button'>".$row['nome']."</button>";
+                                    echo "<button id='".$row['id']." cliente' class='Click-here' style='background:linear-gradient(to right, ". (($row['estado'] == 'A') ? "#59f309 0%, #368f1f 100%" : "#ff1414 0%, #a92828 100%") .");' type='button'>".$row['nome']."</button>";
                                 }
                             }
                             else{
@@ -106,7 +92,7 @@
                             {
                                 foreach($info2 as $row)
                                 {
-                                    echo "<button  id='".$row['prodId']." product' class='Click-here' style='background:linear-gradient(to right, ". (($row['Activity'] == 'A') ? "#59f309 0%, #368f1f 100%" : "#ff1414 0%, #a92828 100%") .");' type='button'>".$row['prodCode']."</button>";
+                                    echo "<button  id='".$row['prodId']." products' class='Click-here' style='background:linear-gradient(to right, ". (($row['Activity'] == 'A') ? "#59f309 0%, #368f1f 100%" : "#ff1414 0%, #a92828 100%") .");' type='button'>".$row['prodCode']."</button>";
                                 }
                             }
                             else{
@@ -124,7 +110,7 @@
                             {
                                 foreach($info3 as $row)
                                 {
-                                    echo "<button id='".$row['prodId']." order' class='Click-here' type='button'>".$row['client']."-".$row['product']."</button>";
+                                    echo "<button id='".$row['id']." orders' class='Click-here' type='button'>".$row['client']."-".$row['product']."</button>";
                                 }
                             }
                             else{
@@ -147,7 +133,7 @@
             url: "queromorrer.php",
             data: {'id': event.target.id.split(" ")[0], 'type': event.target.id.split(" ")[1] },
             success:function(result){
-                console.log(result);
+                document.getElementById("popupid").innerHTML = result;
             }
 
         }

@@ -45,7 +45,8 @@
                 ";
                 break;
         }
-        echo "<button>Edit</button>";
+        echo "<button class='button-71' role='button'>Edit</button>
+        <button class='button-71' role='button'>Order</button>";
 
     }
 

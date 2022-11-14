@@ -175,4 +175,30 @@ justify-content: center;
   }
 }
 
+.pop-up-content-wrap p{
+  display: flex;
+  margin-bottom: 5px;
+}
 
+.pop-up-content-wrap p input{
+  padding: 0 5px;
+  margin-left: 7px;
+  flex-grow: 1;
+}
+
+.pop-up-content-wrap h1{
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.pop-up-content-wrap h1 input{
+  padding: 0 5px;
+  margin-left: 7px;
+  flex-grow: 1;
+}
+
+.pop-up-content-wrap p .input-field{
+  padding: 0 5px;
+  margin-left: 7px;
+  flex-grow: 1;
+}

@@ -135,7 +135,6 @@
             success:function(result){
                 document.getElementById("popupid").innerHTML = result;
             }
-
         }
     )
 
@@ -143,6 +142,146 @@
     $(".close-btn, .bg-overlay").click(function(){
       $(".custom-model-main").removeClass('model-open');
     });
+
+    function Edit(type, id)
+    {
+
+        var typeTransform = {
+            "cliente": "Client:",
+            "products": "Product:",
+            "orders": "Order:"
+        }
+
+        var editbtn = document.getElementById("editbtn");
+        var orderbtn = document.getElementById("orderbtn");
+        var popupdiv = document.getElementById("popupid").children;
+        var btns = [];
+        var initialLength = popupdiv.length;
+        if (editbtn.innerText == "Edit")
+        {
+            console.log("edit");
+            editbtn.innerText = "Save";
+            orderbtn ? orderbtn.style.display = "none" : null ;
+            for (var i=0; i<initialLength; i++)
+            {
+                if (popupdiv[i].tagName != "BUTTON")
+                {
+                    popupdiv[i].style.display = "none";
+                    var newText = document.createElement(popupdiv[i].tagName);
+                    newText.innerText = newText.tagName == "H1" ? typeTransform[type] : popupdiv[i].innerText.split(": ")[0] + ":";
+                    newText.setAttribute("class", "removable");
+                    if (popupdiv[i].id == "Activity" || popupdiv[i].id == "estado")
+                    {
+                        console.log(popupdiv[i]);
+                        var newElement = document.createElement("div");
+                        newElement.setAttribute("class", "input-field");
+                        newElement.innerHTML = 
+                        `
+                        <div>
+                            <label for='dot-1'>
+                                <span class='dot one'></span>
+                                <span class='Activity'>Active</span>
+                            </label>
+                            <input name='estado' type='radio' value='A' id='dot-1' `+ (popupdiv[i].innerText.split(": ")[1] == "Active" ? "checked" : "") +`>
+                        </div>
+                        <div>
+                            <label for='dot-2'>
+                                <span class='dot two'></span>
+                                <span class='Activity'>Inactive</span>
+                            </label>
+                            <input name='estado' type='radio' value='I' id='dot-2' `+ (popupdiv[i].innerText.split(": ")[1] == "Inactive" ? "checked" : "") +`>
+                        </div>
+                        `
+                    }
+                    else
+                    {
+                        var newElement = document.createElement("INPUT");
+                        newElement.setAttribute("type", "text");
+                        newElement.setAttribute("class", "input-box");
+                        newElement.setAttribute("value", newText.tagName == "H1" ? popupdiv[i].innerText : popupdiv[i].innerText.split(": ")[1]);
+                    }
+                    popupdiv[i].parentNode.appendChild(newText);
+                    newText.appendChild(newElement);
+                }
+                else
+                {
+                    btns.push(popupdiv[i]);
+                }
+            }
+            for (var i = 0; i<btns.length; i++)
+            {
+                popupdiv[0].parentNode.appendChild(btns[i]);
+            }
+        }
+        else
+        {
+            var info = [];
+            console.log("save");
+            var allInputs = $(".removable");
+            console.log(allInputs);
+            var allText = $("#popupid [style*='display: none']");
+            for (var i=0; i<allText.length; i++)
+            {
+                allText[i].style.display = ""
+            }
+            for (var i=0; i<allInputs.length; i++)
+            {
+                
+                if(allInputs[i].lastChild.hasChildNodes())
+                {
+                    var Act = $("#dot-1").is(":checked") ? "Active" : "Inactive";
+                    allText[i].innerText = allText[i].innerText.split(": ")[0] + ": " + Act ;
+                    info.push(Act[0])
+                }
+                else{
+                    if(allText[i].id == "morada" && allInputs[i].lastChild.value.replace(/[^,]/g, "").length != 2)
+                    {
+                        info.push(allText[i].innerText.split("ddress: ")[1]);
+                        console.log(allText[i]);
+                    }
+                    else
+                    {
+                        allText[i].innerText = allText[i].tagName == "H1" ?
+                            allInputs[i].lastChild.value : 
+                            allText[i].innerText.split(": ")[0] + ": " + allInputs[i].lastChild.value ;
+                        info.push(allInputs[i].lastChild.value);
+                    }
+                }
+                allInputs[i].parentNode.removeChild(allInputs[i]);
+            }
+            var mainbtn = document.getElementById(id + " " + type);
+            console.log(mainbtn);
+            if (type != "orders")
+            {
+                mainbtn.style ="background:linear-gradient(to right, " + (Act[0] == "A" ? "#59f309 0%, #368f1f 100%" : "#ff1414 0%, #a92828 100%") + ");";
+
+            }
+            mainbtn.innerText = info[0];
+            console.log(mainbtn);
+            editbtn.innerText = "Edit";
+            $.ajax(
+            {
+                type: "POST",
+                url: "SaveInfo.php",
+                data: {'info': info, 'type': type, 'id': id},
+                success:function(result){
+                }
+            })
+        }
+    }
+    function Order(id, orderName)
+    {
+        $.ajax(
+        {
+            type: "POST",
+            url: "Order.php",
+            data: {'id': id, 'orderName' : orderName},
+            success:function(result){
+                $(".custom-model-main").removeClass('model-open');
+                alert(result);
+            }
+        })
+    }
     </script>
 
 </body>

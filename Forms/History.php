@@ -53,70 +53,27 @@
         <div class="center">
             <div class="container">
                 <div class="custom-select">
-                    <select name="filters" id="filters">
-                        <option value>1</option>
-                        <option value>2</option>
-                        <option value>3</option>
-                        <option value>4</option>
-                        <option value>5</option>
-                        <option value>6</option>
-                        <option value>7</option>
-                    </select>
+                    <div>
+                        <p>Activity: </p>
+                        <select onchange="Search()" name="Activity" id="Actvalue">
+                            <option value="null" selected>No Activity filter</option>
+                            <option value="A">Active</option>
+                            <option value="I">Inactive</option>
+                        </select>
+                    </div>
+                    <input id="searchinput" onkeyup="Search()" type="text"> <!--//input////////////////////////////////////////////////////-->
                 </div>
                 <div class="buttonss">
-                    <div class="input-box button list-title">
-                        <button class="title-btn" type="button">Client</button>
-                        <?php
-                            $sql = "Select id, nome, estado from cliente where 1";
-                            $info = mysqli_query($conexao, $sql);
-                            
-                            if($info -> num_rows)
-                            {
-                                foreach($info as $row)
-                                {
-                                    echo "<button id='".$row['id']." cliente' class='Click-here' style='background:linear-gradient(to right, ". (($row['estado'] == 'A') ? "#59f309 0%, #368f1f 100%" : "#ff1414 0%, #a92828 100%") .");' type='button'>".$row['nome']."</button>";
-                                }
-                            }
-                            else{
-                                echo "<p>Não há Registos</p>";
-                            }
-                        ?>
+                    <div id="divclients" class="input-box button list-title"> 
+                        <!--///////all clients with query///////-->
                     </div>
-                    <div class="input-box button list-title">
+                    <div id="divproducts" class="input-box button list-title">
                         <button class="title-btn" type="button">Product</button>
-                        <?php
-                            $sql2 = "Select prodCode, Activity, prodId from products where 1";
-                            $info2 = mysqli_query($conexao, $sql2);
-                            
-                            if($info2 -> num_rows)
-                            {
-                                foreach($info2 as $row)
-                                {
-                                    echo "<button  id='".$row['prodId']." products' class='Click-here' style='background:linear-gradient(to right, ". (($row['Activity'] == 'A') ? "#59f309 0%, #368f1f 100%" : "#ff1414 0%, #a92828 100%") .");' type='button'>".$row['prodCode']."</button>";
-                                }
-                            }
-                            else{
-                                echo "<p>Não há Registos</p>";
-                            }
-                        ?>
+                        <!--///////all products with query///////-->
                     </div>
-                    <div class="input-box button list-title">
+                    <div id="divorders" class="input-box button list-title">
                         <button class="title-btn" type="button">Pre-Order</button>
-                        <?php
-                            $sql3 = "Select id, client, product from orders where 1";
-                            $info3 = mysqli_query($conexao, $sql3);
-                            
-                            if($info3 -> num_rows)
-                            {
-                                foreach($info3 as $row)
-                                {
-                                    echo "<button id='".$row['id']." orders' class='Click-here' type='button'>".$row['client']."-".$row['product']."</button>";
-                                }
-                            }
-                            else{
-                                echo "<p>Não há Registos</p>";
-                            }
-                        ?>
+                        <!--///////all orders with query///////-->
                     </div>
                 </div>
             </div>
@@ -125,23 +82,47 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
     <script>
 
-    $(".Click-here").on('click', function() {
-      $(".custom-model-main").addClass('model-open');
-      $.ajax(
-        {
-            type: "POST",
-            url: "queromorrer.php",
-            data: {'id': event.target.id.split(" ")[0], 'type': event.target.id.split(" ")[1] },
-            success:function(result){
-                document.getElementById("popupid").innerHTML = result;
-            }
+        function showPopup() {
+            $(".custom-model-main").addClass('model-open');
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "queromorrer.php",
+                    data: {'id': event.target.id.split(" ")[0], 'type': event.target.id.split(" ")[1] },
+                    success:function(result){
+                        document.getElementById("popupid").innerHTML = result;
+                    }
+                });
         }
-    )
-
-    }); 
+ 
     $(".close-btn, .bg-overlay").click(function(){
       $(".custom-model-main").removeClass('model-open');
     });
+
+    function Search()
+    {
+        var search_text = document.getElementById("searchinput").value;
+        var Activity_Value = document.getElementById("Actvalue").value;
+        var divclients = document.getElementById("divclients");
+        var divproducts = document.getElementById("divproducts");
+        var divorders = document.getElementById("divorders");
+
+        $.ajax(
+        {
+            type: "POST",
+            url: "searchQuery.php",
+            data: {'search_text': search_text, 'Act_value': Activity_Value},
+            success:function(result){
+                result = JSON.parse(result);
+                divclients.innerHTML = result[0];
+                divproducts.innerHTML = result[1];
+                divorders.innerHTML = result[2];
+            }
+        }
+    )
+    }
+
+    Search("");
 
     function Edit(type, id)
     {
@@ -159,7 +140,6 @@
         var initialLength = popupdiv.length;
         if (editbtn.innerText == "Edit")
         {
-            console.log("edit");
             editbtn.innerText = "Save";
             orderbtn ? orderbtn.style.display = "none" : null ;
             for (var i=0; i<initialLength; i++)
@@ -172,7 +152,6 @@
                     newText.setAttribute("class", "removable");
                     if (popupdiv[i].id == "Activity" || popupdiv[i].id == "estado")
                     {
-                        console.log(popupdiv[i]);
                         var newElement = document.createElement("div");
                         newElement.setAttribute("class", "input-field");
                         newElement.innerHTML = 
@@ -216,9 +195,7 @@
         else
         {
             var info = [];
-            console.log("save");
             var allInputs = $(".removable");
-            console.log(allInputs);
             var allText = $("#popupid [style*='display: none']");
             for (var i=0; i<allText.length; i++)
             {
@@ -237,7 +214,6 @@
                     if(allText[i].id == "morada" && allInputs[i].lastChild.value.replace(/[^,]/g, "").length != 2)
                     {
                         info.push(allText[i].innerText.split("ddress: ")[1]);
-                        console.log(allText[i]);
                     }
                     else
                     {
@@ -250,14 +226,12 @@
                 allInputs[i].parentNode.removeChild(allInputs[i]);
             }
             var mainbtn = document.getElementById(id + " " + type);
-            console.log(mainbtn);
             if (type != "orders")
             {
                 mainbtn.style ="background:linear-gradient(to right, " + (Act[0] == "A" ? "#59f309 0%, #368f1f 100%" : "#ff1414 0%, #a92828 100%") + ");";
 
             }
             mainbtn.innerText = info[0];
-            console.log(mainbtn);
             editbtn.innerText = "Edit";
             $.ajax(
             {

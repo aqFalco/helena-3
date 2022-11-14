@@ -4,6 +4,8 @@
     $pass ="banana445566";
     $database="prod";
 
+    date_default_timezone_set("Europe/Lisbon");
+
     $conexao = mysqli_connect("localhost", "root", "", "prod"); //adicionar pass no espaco em braco ( string vazia)
 
     if ($conexao->connect_error) {

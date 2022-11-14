@@ -1,4 +1,6 @@
 <?php
+
+date_default_timezone_set("Europe/Lisbon");
 if(!empty($_POST))
 {
     $conexao = mysqli_connect("localhost", "root", "", "prod"); //adicionar pass no espaco em braco ( string vazia)

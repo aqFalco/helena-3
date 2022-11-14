@@ -99,6 +99,8 @@
 
             </form>
             <?php
+
+            date_default_timezone_set("Europe/Lisbon");
             function SendDetails()
             {
                 $client = $_POST["client"];
@@ -109,7 +111,7 @@
 
                 
 
-                $sql_send = "insert into orders values('$client', '$product', '$amount', '$week', '".date('jS F Y h:i:s A')."')";
+                $sql_send = "insert into orders(client, product, amount, week, horas) values('$client', '$product', '$amount', '$week', '".date('jS F Y h:i:s A')."')";
                 $info_send = mysqli_query($conexao, $sql_send);
 
                 echo "<script>  window.location.href = 'POrder.php'; alert('Pre-Order Realizada com sucesso'); </script>";

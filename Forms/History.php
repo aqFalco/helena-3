@@ -126,7 +126,7 @@
 
     function Edit(type, id)
     {
-
+        
         var typeTransform = {
             "cliente": "Client:",
             "products": "Product:",
@@ -239,10 +239,7 @@
                 url: "SaveInfo.php",
                 data: {'info': info, 'type': type, 'id': id},
                 success:function(result){
-                    if (result)
-                    {
                         Search();
-                    }
                 }
             })
         }

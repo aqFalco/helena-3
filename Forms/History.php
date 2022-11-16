@@ -122,7 +122,7 @@
     )
     }
 
-    Search("");
+    Search();
 
     function Edit(type, id)
     {
@@ -239,6 +239,10 @@
                 url: "SaveInfo.php",
                 data: {'info': info, 'type': type, 'id': id},
                 success:function(result){
+                    if (result)
+                    {
+                        Search();
+                    }
                 }
             })
         }

@@ -23,7 +23,7 @@
     or setor like '%".$_POST['search_text']."%') ". ($_POST['Act_value'] != "null" ? " AND estado like '".$_POST['Act_value']."'" : "");
     $info = mysqli_query($conexao, $sql);
     
-    $data_data[0] = "<button class='title-btn' type='button'>Client</button>";
+    $data_data[0] = "<button class='title-btn' type='button'>Clients</button>";
     if($info -> num_rows)
     {
         foreach($info as $row)
@@ -42,7 +42,7 @@
     or horas like '%".$_POST['search_text']."%') ". ($_POST['Act_value'] != "null" ? " AND Activity like '".$_POST['Act_value']."'" : "");
     $info = mysqli_query($conexao, $sql);
     
-    $data_data[1] = "<button class='title-btn' type='button'>Client</button>";
+    $data_data[1] = "<button class='title-btn' type='button'>Products</button>";
     if($info -> num_rows)
     {
         foreach($info as $row)
@@ -61,7 +61,7 @@
     or week like '%".$_POST['search_text']."%')";
     $info = mysqli_query($conexao, $sql);
     
-    $data_data[2] = "<button class='title-btn' type='button'>Client</button>";
+    $data_data[2] = "<button class='title-btn' type='button'>Orders</button>";
     if($info -> num_rows)
     {
         foreach($info as $row)

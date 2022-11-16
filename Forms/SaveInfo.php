@@ -35,6 +35,14 @@ if(!empty($_POST))
                     horas = '".$_POST['info'][6]."'
                     WHERE cliente.id = ".$_POST['id'];
             $query = mysqli_query($conexao, $sql);
+
+            if ($_POST['info'][5] == "I")
+            {
+                $del_query = "delete from orders where client = '".$_POST['info'][0]."'";
+                $delete = mysqli_query($conexao, $del_query);
+                echo true;
+            }
+
             break;
         case "products":
             $sql = "UPDATE products
@@ -45,6 +53,13 @@ if(!empty($_POST))
                     horas = '".$_POST['info'][4]."'
                     WHERE products.prodId = ".$_POST['id'];
             $query = mysqli_query($conexao, $sql);
+
+            if ($_POST['info'][3] == "I")
+            {
+                $del_query = "delete from orders where product = '".$_POST['info'][0]."'";
+                $delete = mysqli_query($conexao, $del_query);
+                echo true;
+            }
             break;
         case "orders":
             $orderDetails = explode("-", $_POST['info'][0]);
